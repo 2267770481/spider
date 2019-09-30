@@ -52,7 +52,7 @@ class GetImg(object):
     def get_skin(self, list_num):
         '''构造皮肤字典'''
         print('准备下载...')
-        for hero in list_num:
+        for hero in tqdm(list_num):
             tmp_url = self.skin_num_mode.format(hero)
             r = self.req(tmp_url)
             
@@ -64,7 +64,7 @@ class GetImg(object):
             
             # 构造皮肤地址
             skin_num  = len(skin_list)
-            for num in tqdm(range(skin_num)):
+            for num in range(skin_num):
                 skin_name = skin_list[num]
                 self.skin_url = self.skin_mode.format(hero, hero, num+1)
                 # self.skin_property[skin_name] = self.skin_url   本来打算将图片信息存到字典中，发现运行速度太慢了
@@ -78,7 +78,7 @@ class GetImg(object):
     
     def download_img(self, img_name, img_url):
         '''下载图片'''
-        print('正在下载[%s]...' % img_name)
+        # print('正在下载[%s]...' % img_name)
         r = self.req(img_url)
         file_path = os.path.join(self.floder_name, img_name + '.jpg')
         with open(file_path, 'wb') as fp:
